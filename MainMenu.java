@@ -22,4 +22,9 @@ public class MainMenu extends AppCompatActivity {
         Intent next2 = new Intent(this, InventoryMenu.class);
         startActivity(next2);
     }
+
+    public void logOut(View view){
+        Intent next = new Intent(this, HomeScreen.class);
+        startActivity(next);
+    }
 }

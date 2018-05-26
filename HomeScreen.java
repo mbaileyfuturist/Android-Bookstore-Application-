@@ -13,6 +13,13 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        try {
+            //Open database.
+            SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
+            Log.i("Success", "values successfully inserted into table");
+        }catch(Exception e){
+            Log.i("Error", e.getMessage());
+        }
     }
 
     public void goToLogIn(View view){

@@ -42,7 +42,7 @@ public class AddBook extends AppCompatActivity {
         String newRetail = retail.getText().toString();
 
         try {
-            //Content values to inser into table. key id the column name value is the column value.
+            //Content values to inser into table. key is the column name value is the column value.
             ContentValues dataToInsert = new ContentValues();
             dataToInsert.put("title", newBookTitle);
             dataToInsert.put("author", newBookAuthor);

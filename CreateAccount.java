@@ -1,5 +1,7 @@
 package com.example.michealbailey.intrinsicbookstore;
 
+import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +41,24 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void createAccount(View view){
-        //Insert values into employee table.
+        ContentValues dataToInsert = new ContentValues();
+        dataToInsert.put("firstName", firstName);
+        dataToInsert.put("lastName", lastName);
+        dataToInsert.put("userName", userName);
+        dataToInsert.put("password", password);
+        dataToInsert.put("email", email);
+        dataToInsert.put("employeeType", employeeType);
+
+        try {
+            //Open database.
+            SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
+            //Insert new employee into table.
+            dataBaseObj.insert("employees", null, dataToInsert);
+            Log.i("Sucesss", "New employee successfully inserted.");
+            Intent next = new Intent(this, MainMenu.class);
+            startActivity(next);
+        }catch(Exception e){
+            Log.i("Error", "Unsuccessful insert of new Employee.");
+        }
     }
 }
