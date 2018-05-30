@@ -13,22 +13,15 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        try {
-            //Open database.
-            SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
-            Log.i("Success", "values successfully inserted into table");
-        }catch(Exception e){
-            Log.i("Error", e.getMessage());
-        }
     }
 
     public void goToLogIn(View view){
-            Intent next = new Intent(this, LogIn.class);
-            startActivity(next);
+            Intent toLogin = new Intent(this, LogIn.class);
+            startActivity(toLogin);
     }
 
     public void goToSignUp(View view){
-            Intent next = new Intent(this, CreateAccount.class);
-            startActivity(next);
+            Intent toSignUp = new Intent(this, CreateAccount.class);
+            startActivity(toSignUp);
     }
 }
