@@ -25,27 +25,41 @@ public class PurchaseTransaction extends AppCompatActivity {
 
     public void searchBook(View view){
         double TAX = 0.06;
+
+        //ArrayList of Book attributes.
         ArrayList<String> bookAttributes = new ArrayList<String>();
+
+        //Reference to Listview for bookAttributes.
         ListView listOfAttributes = (ListView)findViewById(R.id.BookAttributes);
+
+        /*Reference to EditText for the book isbn used to search for the coresponding
+        book attributes*/
         EditText isbnText = (EditText)findViewById(R.id.Book_ISBN);
         String isbnNumber = isbnText.getText().toString();
 
-        //Search the database for the matching ISBN
         try {
+            //Empty strings used tot store the attributes for the corresponding book.
             String titleMatch = "", authorMatch = "", publisherMatch = "", genreMatch = "", retailPriceMatch = "";
 
             //Open database.
             SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
             Cursor cursor = dataBaseObj.rawQuery("SELECT * FROM book_inventory",null);
+
+            /*Grab the isbn, title, author, publisher, genre, and retail_price for the book
+            corresponding to the isbn number entered.*/
             int columnIndex1 = cursor.getColumnIndex("isbn");
             int columnIndex2 = cursor.getColumnIndex("title");
             int columnIndex3 = cursor.getColumnIndex("author");
             int columnIndex4 = cursor.getColumnIndex("publisher");
             int columnIndex5 = cursor.getColumnIndex("genre");
             int columnIndex6 = cursor.getColumnIndex("retail_price");
+
+            //Move the cursor to the first row of the database and begin looping through each row.
             cursor.moveToFirst();
             while(cursor != null){
                 String isbnMatch = cursor.getString(columnIndex1);
+                /*If the ISBN entered matches the ISBN within the database then grab the corresponding
+                values for that book and store them in the corresponding strings for later use.*/
                 if(isbnMatch.equals(isbnNumber)){
 
                     titleMatch = cursor.getString(columnIndex2);
@@ -61,6 +75,7 @@ public class PurchaseTransaction extends AppCompatActivity {
                 cursor.moveToNext();
             }
 
+            //Add these values into the arraylist
             bookAttributes.add(titleMatch);
             bookAttributes.add(authorMatch);
             bookAttributes.add(publisherMatch);
@@ -69,6 +84,7 @@ public class PurchaseTransaction extends AppCompatActivity {
             bookAttributes.add("Tax: $" + TAX);
             bookAttributes.add("Total: $" + (Double.parseDouble(retailPriceMatch)+TAX));
 
+            //Set the ArrayList to the ArrayAdapter.
             ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bookAttributes){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent){
@@ -85,6 +101,8 @@ public class PurchaseTransaction extends AppCompatActivity {
                     return view;
                 }
             };
+
+            //Set the ArrayAdapter to the ListView.
             listOfAttributes.setAdapter(listAdapter);
 
         }catch(Exception e){

@@ -15,11 +15,13 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
     }
 
+    //Login function that takes the user to the login screen.
     public void goToLogIn(View view){
             Intent toLogin = new Intent(this, LogIn.class);
             startActivity(toLogin);
     }
 
+    //Sign up function that takes the user to the sign up screen.
     public void goToSignUp(View view){
             Intent toSignUp = new Intent(this, CreateAccount.class);
             startActivity(toSignUp);

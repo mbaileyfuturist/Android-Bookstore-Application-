@@ -37,6 +37,9 @@ public class RemoveBook extends AppCompatActivity {
             //Opens database.
             SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
             Cursor cursor = dataBaseObj.rawQuery("SELECT * FROM book_inventory", null);
+
+            /*Grab the isbn, title, author, publisher, genre, wholesale_price and retail_price for the book
+            corresponding to the isbn number entered.*/
             int columnIndex1 = cursor.getColumnIndex("isbn");
             int columnIndex2 = cursor.getColumnIndex("title");
             int columnIndex3 = cursor.getColumnIndex("author");
@@ -44,6 +47,8 @@ public class RemoveBook extends AppCompatActivity {
             int columnIndex5 = cursor.getColumnIndex("genre");
             int columnIndex6 = cursor.getColumnIndex("retail_price");
             int columnIndex7 = cursor.getColumnIndex("wholesale_price");
+
+            //Move the cursor to the first row of the database and begin looping through each row.
             cursor.moveToFirst();
             while (cursor != null) {
                 String isbnMatch = cursor.getString(columnIndex1);
@@ -74,11 +79,17 @@ public class RemoveBook extends AppCompatActivity {
         wholesalePrice.setText(wholesalePriceMatch);
 
     }
+
+    //Function used to remove the book found useing the searchBook function.
     public void removeBook(View view){
         try {
             //Opens database.
             SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
+
+            //Remove the corresponding book from the database.
             dataBaseObj.delete("book_inventory", "isbn = '" + isbnToSearch + "'", null);
+
+            //If the book was successfully removed then log to the console and toast to the screen.
             Log.i("Success", "Values were successfully removed.");
             Toast.makeText(this, "Book successfully removed.", Toast.LENGTH_LONG).show();
         }catch (Exception e){

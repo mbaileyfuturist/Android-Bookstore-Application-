@@ -31,7 +31,7 @@ public class CreateAccount extends AppCompatActivity {
             EditText editEmail = findViewById(R.id.email_input);
             EditText editEmployeeID = findViewById(R.id.employee_id);
 
-            //Grabbing input and putting into Strings.
+            //Grabbing input from references and putting into Strings.
             String firstName = editFirstName.getText().toString();
             String lastName = editLastName.getText().toString();
             String employeeID = editEmployeeID.getText().toString();
@@ -44,24 +44,32 @@ public class CreateAccount extends AppCompatActivity {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.employee_array, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             employeeSpinner.setAdapter(adapter);
+
+            //Grabbing input from spinner reference and putting it into a string.
             String employeeType = employeeSpinner.getSelectedItem().toString();
 
-        ContentValues dataToInsert = new ContentValues();
-        dataToInsert.put("first_name", firstName);
-        dataToInsert.put("last_name", lastName);
-        dataToInsert.put("user_name", userName);
-        dataToInsert.put("password", password);
-        dataToInsert.put("employee_id", employeeID);
-        dataToInsert.put("email", email);
-        dataToInsert.put("employee_type", employeeType);
+            //Content values for new employee to insert into database.
+            ContentValues dataToInsert = new ContentValues();
+            dataToInsert.put("first_name", firstName);
+            dataToInsert.put("last_name", lastName);
+            dataToInsert.put("user_name", userName);
+            dataToInsert.put("password", password);
+            dataToInsert.put("employee_id", employeeID);
+            dataToInsert.put("email", email);
+            dataToInsert.put("employee_type", employeeType);
 
 
             //Open database.
             SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
+
             //Insert new employees into table.
             dataBaseObj.insert("employees", null, dataToInsert);
+
+            //If successfull insert log to the consol and toast to the screen.
             Log.i("Sucesss", "New employee successfully inserted.");
             Toast.makeText(this, "employee successfully added.", Toast.LENGTH_LONG).show();
+
+            //Then move on to the next activity.
             Intent next = new Intent(this, MainMenu.class);
             startActivity(next);
         }catch(Exception e){

@@ -55,11 +55,13 @@ public class InventoryMenu extends AppCompatActivity {
         //Set the adapter to the ListView.
         inventoryMenuItems.setAdapter(inventoryMenuAdapter);
 
-        //Give the ListView interactivity.
+        //Create intents for each item in the list view.
         final Intent viewInv = new Intent(this, ViewInventory.class);
         final Intent addB = new Intent(this, AddBook.class);
         final Intent removeB = new Intent(this, RemoveBook.class);
         final Intent backToMain = new Intent(this, MainMenu.class);
+
+        //Takes the user to the corresponding item clicked on in the ListView.
         inventoryMenuItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

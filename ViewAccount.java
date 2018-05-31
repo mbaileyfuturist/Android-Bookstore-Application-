@@ -13,6 +13,7 @@ public class ViewAccount extends AppCompatActivity {
         setContentView(R.layout.activity_view_account);
     }
 
+    //function used to take the user to the salesHistory screen.
     public void salesHistory(View view){
         Intent salesHistory = new Intent(this, SalesHistory.class);
         startActivity(salesHistory);

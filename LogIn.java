@@ -39,6 +39,7 @@ public class LogIn extends AppCompatActivity {
         try {
                 //Open the myDatabase database.
                 SQLiteDatabase dataBaseObj = this.openOrCreateDatabase("myDatabase", MODE_PRIVATE, null);
+
                 //Grab the username and password columns.
                 Cursor myCursor = dataBaseObj.rawQuery("SELECT * FROM employees", null);
                 int columnIndex1 = myCursor.getColumnIndex("user_name");
@@ -46,12 +47,15 @@ public class LogIn extends AppCompatActivity {
 
                 boolean found = false;
                 myCursor.moveToFirst();
+
                 //Search for the employee credentials.
                 while (myCursor != null) {
                     //Get the Strings stored within row n of columns user_name and password
                     String usernameMatch = myCursor.getString(columnIndex1);
                     String passwordMatch = myCursor.getString(columnIndex2);
 
+                    /*If the username and password has been has been found in the database then take
+                    take them to the main menu*/
                     if (usernameMatch.equalsIgnoreCase(username) && passwordMatch.equals(password)) {
                         found = true;
                         Intent toMainMenu = new Intent(this, MainMenu.class);
@@ -60,6 +64,8 @@ public class LogIn extends AppCompatActivity {
                     }
                     myCursor.moveToNext();
                 }
+
+                //If the username and password have'nt been found then toast unsuccessful message.
                 if (!found) {
                     Log.i("Error", "User credentials do not exist.");
                     Toast.makeText(this, "Unsuccessfull login, try again.", Toast.LENGTH_LONG).show();

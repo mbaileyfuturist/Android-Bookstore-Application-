@@ -32,10 +32,10 @@ public class ViewInventory extends AppCompatActivity {
             int columnIndex1 = cursor.getColumnIndex("isbn");
             int columnIndex2 = cursor.getColumnIndex("title");
             int columnIndex3 = cursor.getColumnIndex("author");
-            //int columnIndex4 = cursor.getColumnIndex("publisher");
             int columnIndex5 = cursor.getColumnIndex("genre");
             int columnIndex6 = cursor.getColumnIndex("retail_price");
             int columnIndex7 = cursor.getColumnIndex("wholesale_price");
+
             //Extract all data and store into an ArrayList.
             cursor.moveToFirst();
             while (cursor != null) {
